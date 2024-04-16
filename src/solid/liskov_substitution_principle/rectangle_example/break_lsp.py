@@ -40,15 +40,10 @@ class Square(Rectangle):
         _width = _height = value
 
 
-def use_it(rc):
-    w = rc.width
-    rc.height = 10  # unpleasant side effect
+def use_it(rectangle: Rectangle):
+    w = rectangle.width
+    rectangle.height = 10  # unpleasant side effect
     expected = int(w * 10)
-    print(f'Expected an area of {expected}, got {rc.area}')
+    print(f'Expected an area of {expected}, got {rectangle.area}')
 
-
-rc = Rectangle(2, 3)
-use_it(rc)
-
-sq = Square(5)
-use_it(sq)
+# break the lsp by defining a Square as a specific type of Rectangle, while the properties should be handled differently
