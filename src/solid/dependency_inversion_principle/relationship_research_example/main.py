@@ -1,0 +1,16 @@
+from person import Person
+from research import Research
+from relationships import Relationships
+
+
+if __name__ == "__main__":
+    parent = Person('John')
+    child1 = Person('Chris')
+    child2 = Person('Matt')
+
+    # low-level module
+    relationships = Relationships()
+    relationships.add_parent_and_child(parent, child1)
+    relationships.add_parent_and_child(parent, child2)
+
+    Research(browser=relationships, parent=parent.name)
