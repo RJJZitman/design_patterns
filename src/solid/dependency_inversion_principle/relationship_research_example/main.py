@@ -13,4 +13,5 @@ if __name__ == "__main__":
     relationships.add_parent_and_child(parent, child1)
     relationships.add_parent_and_child(parent, child2)
 
-    Research(browser=relationships, parent=parent.name)
+    research = Research(browser=relationships)
+    research.find_children_of(parent=parent.name)
