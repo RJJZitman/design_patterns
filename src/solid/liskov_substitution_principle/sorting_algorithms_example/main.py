@@ -1,7 +1,10 @@
+from collections.abc import Sequence
+
 from algorithms import SortingAlgorithm, BubbleSort, QuickSort
 
 
-def sort_numbers(sorting_algorithm: SortingAlgorithm, nums: list[int | float]):
+def sort_numbers(sorting_algorithm: SortingAlgorithm, nums: Sequence[int | float]):
+    """Returns the sorted numbers by the given SortingAlgorithm"""
     sorting_algorithm.sort(nums)
     return nums
 
