@@ -1,17 +1,4 @@
-from interfaces import Scanner, Printer
-
-
-class MyPrinter(Printer):
-    def print(self, document):
-        print(document)
-
-
-class Photocopier(Printer, Scanner):
-    def print(self, document):
-        print(document)
-
-    def scan(self, document):
-        print("your document has been scanned!")
+from devices import MyPrinter, Photocopier
 
 
 if __name__ == "__main__":
