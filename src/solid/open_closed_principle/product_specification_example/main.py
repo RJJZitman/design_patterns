@@ -1,6 +1,7 @@
-from filters import Filter
+from filters import FilterSpec
 from product import Product, Color, Size
 from specifications import ColorSpecification, SizeSpecification
+
 
 if __name__ == "__main__":
     pear = Product('Pear', Color.GREEN, Size.SMALL)
@@ -13,13 +14,13 @@ if __name__ == "__main__":
     small_blue = small & ColorSpecification(Color.BLUE)
 
     print('Green products (new):')
-    for p in Filter.filter(products, green):
+    for p in FilterSpec.filter(items=products, spec=green):
         print(f' - {p.name} is green')
 
     print('Small products:')
-    for p in Filter.filter(products, small):
+    for p in FilterSpec.filter(items=products, spec=small):
         print(f' - {p.name} is small')
 
     print('Small blue items:')
-    for p in Filter.filter(products, small_blue):
+    for p in FilterSpec.filter(items=products, spec=small_blue):
         print(f' - {p.name} is small and blue')

@@ -14,6 +14,7 @@ class Size(Enum):
 
 
 class Product:
+    """Defines a product"""
     def __init__(self, name, color, size):
         self.name = name
         self.color = color
