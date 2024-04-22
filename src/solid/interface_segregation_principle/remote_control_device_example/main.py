@@ -1,19 +1,23 @@
 from devices import TV, Stereo
-from device_controller import RemoteControlDevice, DeviceMethodCommand
+from device_controller import RemoteControl, MethodCommand
 
 if __name__ == "__main__":
 
     tv_commands = [
-        DeviceMethodCommand("change_channel", 5),
-        DeviceMethodCommand("adjust_volume", 20),
-    ]
-    stereo_commands = [
-        DeviceMethodCommand("adjust_volume", 20),
+        MethodCommand(method="change_channel", **{"channel": 5}),
+        MethodCommand(method="adjust_volume", **{"volume": 20}),
     ]
 
-    tv_remote = RemoteControlDevice(TV())
+    stereo_commands = [
+        MethodCommand("adjust_volume", 20),
+    ]
+
+    tv_remote = RemoteControl(TV())
     with tv_remote:
         tv_remote.operate(tv_commands)
 
-    with RemoteControlDevice(Stereo()) as stereo_remote:
+    with RemoteControl(Stereo()) as stereo_remote:
         stereo_remote.operate(stereo_commands)
+
+    with TV() as tv:
+        tv.change_channel(channel=4)
