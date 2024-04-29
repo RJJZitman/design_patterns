@@ -4,6 +4,7 @@ from vehicles import IVehiclePrototype
 
 
 class VehiclePrototypeFactory:
+    """A vehicle prototype factory that allows for dynamic prototype definition and construction"""
     prototypes = {}
 
     @staticmethod

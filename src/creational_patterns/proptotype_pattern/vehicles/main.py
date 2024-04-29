@@ -4,6 +4,7 @@ from proto_factory import VehiclePrototypeFactory
 
 if __name__ == "__main__":
     # registering prototype objects with the factory. Note that this approach allows for prototype definition per app
+    # and does not break the OCP.
     VehiclePrototypeFactory.register_prototype("car", Car("Toyota", "Corolla"))
     VehiclePrototypeFactory.register_prototype("bike", Bike("Honda"))
 

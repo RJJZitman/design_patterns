@@ -2,6 +2,7 @@ from abc_factory import TestingEnvironmentFactory
 
 
 class TestingClient:
+    """Testing client that utilises the TestingEnvironmentFactory to provide the desired environments"""
     def __init__(self, factory: TestingEnvironmentFactory):
         self.factory = factory
 

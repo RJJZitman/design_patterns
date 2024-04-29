@@ -4,6 +4,7 @@ from factories import *
 
 
 class HotDrinkMachine:
+    """Class to make hot drinks by utilising the HotDrinks Factories"""
     class AvailableDrink(Enum):  # violates OCP
         COFFEE = auto()
         TEA = auto()

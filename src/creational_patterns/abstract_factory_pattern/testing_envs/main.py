@@ -4,8 +4,8 @@ from env_selector import EnvironmentFactorySelector
 
 
 if __name__ == "__main__":
-    # Example usage
-    environment = "development"  # Change this to "staging" or "production" for different environments
+    # Example usage, change this to "staging" or "production" for different environments
+    environment = "development"
 
     factory = EnvironmentFactorySelector.select_factory(environment=environment)
     client = TestingClient(factory=factory)

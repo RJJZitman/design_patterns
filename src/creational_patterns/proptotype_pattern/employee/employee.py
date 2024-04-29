@@ -1,4 +1,5 @@
 class Address:
+    """Address class to hold address data"""
     def __init__(self, street_address: str, suite: int, city: str):
         self.suite = suite
         self.city = city
@@ -9,6 +10,7 @@ class Address:
 
 
 class Employee:
+    """Employee class to hold employee data"""
     def __init__(self, name: str, address: Address):
         self.address = address
         self.name = name
