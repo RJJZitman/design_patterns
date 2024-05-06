@@ -38,7 +38,9 @@ class AppConfigBuilder(metaclass=BuilderMeta):
         self.cls_to_build = config or self._create_default_config()
 
     def _create_default_config(self):
-        """Create a default config instance using the ConfigClass."""
+        # TODO: move to metaclass with header def _create_template_class_to_build(self):
+        # TODO: raise error when ClassToBuild attribute does not exist!
+        """Create a default config instance using the ClassToBuild."""
         return self.ClassToBuild()
 
     def build(self):
