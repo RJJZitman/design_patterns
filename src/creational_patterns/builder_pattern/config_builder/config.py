@@ -1,3 +1,6 @@
+from builder_meta import BuilderMeta
+
+
 class AppConfig:
     def __init__(self):
         # TODO: put each sub config in a seperate (pydantic basemodel?) class whilst (preferable) allowing direct access to attributes in sub builders. config component classes should shre __str__ formatting for consistency
@@ -14,15 +17,12 @@ class AppConfig:
         self.auth_token: str | None = None
 
     def __str__(self):
-        """Custom string representation for prettiness"""
-        # TODO: must create dynamically from subbuilder __str__ methods
-        config_text = (f"DB:\n"
-                       f"host: {self.host}, port: {self.port}, username: {self.username}, password: {self.password}, "
-                       f"database_name: {self.database_name}\n"
-                       f"API\n"
-                       f"base_url: {self.base_url}, supported_methods: {self.supported_methods}, "
-                       f"auth_token: {self.auth_token}")
-        return config_text
+        """Custom string representation."""
+        db_info = f"DB:\nhost: {self.host}, port: {self.port}, username: {self.username}, " \
+                  f"password: {self.password}, database_name: {self.database_name}"
+        api_info = f"API:\nbase_url: {self.base_url}, supported_methods: {self.supported_methods}, " \
+                   f"auth_token: {self.auth_token}"
+        return db_info + "\n" + api_info
 
     @staticmethod
     def get_app_config_builder():
@@ -30,36 +30,56 @@ class AppConfig:
         return AppConfigBuilder(config=AppConfig())
 
 
-class AppConfigBuilder:
-    """
-    Builder for Config objects by utilising sub-builders. Note that the sub-builders are dynamically registered in
-    the 'components' attribute when the file is read and added as properties when an AppConfigBuilder instance is
-    created.
-    """
-    components = {}
+class AppConfigBuilder(metaclass=BuilderMeta):
+    """Base builder for AppConfig."""
+    ClassToBuild = AppConfig  # Reference to the Config class
 
-    def __init__(self, config: AppConfig | None = AppConfig()):
-        self.config = config
+    def __init__(self, config=None):
+        self.cls_to_build = config or self._create_default_config()
 
-    def __new__(cls, **kwargs):
-        """Set get properties to the created instance of AppConfigBuilder for all sub-builders."""
-        def _get(self):
-            return cls.components[prop_name](config=self.config)
-        prop_name = cls.__name__.lower()
-        print(prop_name)
-
-        # Assign property to the parent class
-        obj = object.__new__(cls)
-        # print(prop_name, obj.__class__.__name__)
-        # TODO: make the statement below generic such that it can work on any 'parent' builder. maybe in decorator and provide name or something to make it dynamically checkable
-        setattr(AppConfigBuilder, prop_name, property(fget=_get))
-        return obj
-
-    def __init_subclass__(cls, **kwargs):
-        """Register the names of all defined sub-builders. Sub-builders must inherit from AppConfigBuilder."""
-        prop_name = cls.__name__.lower()
-        AppConfigBuilder.components[prop_name] = cls
+    def _create_default_config(self):
+        """Create a default config instance using the ConfigClass."""
+        return self.ClassToBuild()
 
     def build(self):
-        """Returns the AppConfig"""
-        return self.config
+        """Returns the built config."""
+        return self.cls_to_build
+
+
+class DatabaseConfigBuilder(AppConfigBuilder):
+    """Sub-builder for DB config information."""
+
+    def with_host(self, host):
+        self.cls_to_build.host = host
+        return self
+
+    def with_port(self, port):
+        self.cls_to_build.port = port
+        return self
+
+    def with_credentials(self, username, password):
+        self.cls_to_build.username = username
+        self.cls_to_build.password = password
+        return self
+
+    def with_database(self, database_name):
+        self.cls_to_build.database_name = database_name
+        return self
+
+
+class ApiConfigBuilder(AppConfigBuilder):
+    """Sub-builder for API config information."""
+
+    def with_base_url(self, base_url):
+        self.cls_to_build.base_url = base_url
+        return self
+
+    def with_supported_methods(self, methods):
+        self.cls_to_build.supported_methods = methods
+        return self
+
+    def with_auth_token(self, auth_token):
+        self.cls_to_build.auth_token = auth_token
+        return self
+
+

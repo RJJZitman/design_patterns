@@ -10,7 +10,7 @@ def main():
     triangle = Triangle(base=7, height=11)
 
     # utilise the adapters to make the shapes comply with the IShape interface
-    rectangle_shape = RectangleAdapter(rectangle)
+    rectangle_shape = RectangleAdapter(rectangle=rectangle)
     circle_shape = CircleAdapter(circle)
     triangle_shape = TriangleAdapter(triangle)
 
