@@ -4,6 +4,7 @@ from builder_meta import BuilderMeta
 class AppConfig:
     def __init__(self):
         # TODO: put each sub config in a seperate (pydantic basemodel?) class whilst (preferable) allowing direct access to attributes in sub builders. config component classes should shre __str__ formatting for consistency
+        # TODO: find a way to derive these from the attributes available through the sub builders to fully comply with OCP
         # db config
         self.host: str | None = None
         self.port: str | None = None
