@@ -81,5 +81,3 @@ class ApiConfigBuilder(AppConfigBuilder):
     def with_auth_token(self, auth_token):
         self.cls_to_build.auth_token = auth_token
         return self
-
-

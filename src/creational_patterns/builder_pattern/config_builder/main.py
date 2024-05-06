@@ -3,6 +3,7 @@ from config import AppConfig
 
 if __name__ == "__main__":
     app_builder = AppConfig.get_app_config_builder()
+    # print(dir(app_builder))
 
     app_config = (app_builder
                   .databaseconfigbuilder
