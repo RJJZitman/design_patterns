@@ -2,6 +2,7 @@ from low_level import RowGenerator, Splitter, Verifier
 
 
 class MagicSquareGenerator:
+    """Facade to generate a magic square by utilising the RowGenerator, Splitter, Verifier"""
     @staticmethod
     def generate(size):
         g = RowGenerator()

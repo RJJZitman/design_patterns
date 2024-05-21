@@ -2,24 +2,29 @@ from random import randint
 
 
 class RowGenerator:
+    """Generates a row of a given size to construct the square"""
     @staticmethod
     def generate(count):
         return [randint(1, 9) for x in range(count)]
 
 
 class Splitter:
+    """constructs a list of all rows, columns and diagonals"""
     @staticmethod
     def split(array):
         result = []
 
         row_count = len(array)
         col_count = len(array[0])
+
+        # get rows
         for r in range(row_count):
             the_row = []
             for c in range(col_count):
                 the_row.append(array[r][c])
                 result.append(the_row)
 
+        # get cols
         for c in range(col_count):
             the_col = []
             for r in range(row_count):
@@ -28,6 +33,7 @@ class Splitter:
 
         diag1 = []
         diag2 = []
+        # get diagonals
         for c in range(col_count):
             for r in range(row_count):
                 if c == r:
@@ -41,6 +47,7 @@ class Splitter:
 
 
 class Verifier:
+    """Verifies if the sum of all rows, cols and diagonals is the same"""
     @staticmethod
     def verify(arrays):
         first = sum(arrays[0])
