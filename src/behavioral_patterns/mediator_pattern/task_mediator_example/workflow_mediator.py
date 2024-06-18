@@ -15,7 +15,6 @@ class WorkflowMediator:
 
     @staticmethod
     def register_service(task_type: Type[ITask], service: IService):
-        print(WorkflowMediator._services)
         if task_type.__name__ not in list(WorkflowMediator._services):
             WorkflowMediator._services[task_type.__name__] = service
         print(f"task type: {task_type} is registered under key {task_type.__name__}.")
